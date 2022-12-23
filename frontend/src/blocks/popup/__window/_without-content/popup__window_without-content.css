@@ -1,0 +1,6 @@
+.popup__window_without-content {
+  height: 181px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

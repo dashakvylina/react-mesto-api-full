@@ -1,0 +1,22 @@
+.popup__window {
+  width: 430px;
+  height: auto;
+  background: white;
+  border-radius: 10px;
+  padding: 36px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+@media screen and (max-width: 468px) {
+  .popup__window {
+    width: calc(100% - 38px);
+  }
+}
+
+@media screen and (max-width: 918px) {
+  .popup__window {
+    padding: 22px;
+    height: auto;
+  }
+}

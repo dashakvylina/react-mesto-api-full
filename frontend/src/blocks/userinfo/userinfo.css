@@ -1,0 +1,25 @@
+.userinfo {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: right;
+  color: #ffffff;
+}
+
+.userinfo span {
+  margin-right: 30px;
+}
+
+.userinfo button {
+  border: none;
+  background: none;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  /* identical to box height, or 122% */
+
+  text-align: right;
+
+  color: #a9a9a9;
+  cursor: pointer;
+}

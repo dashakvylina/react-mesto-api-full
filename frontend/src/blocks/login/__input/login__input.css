@@ -1,0 +1,22 @@
+.login__input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 400;
+  color: #cccccc;
+  border-bottom: 2px solid rgba(204, 204, 204, 0.2);
+  outline: none;
+  background-color: #000000;
+  width: 100%;
+  padding-bottom: 13px;
+}
+
+.login__input:first-child {
+  margin-bottom: 30px;
+}
+
+.login__input:selected {
+  background-color: #000000;
+}
