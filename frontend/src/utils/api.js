@@ -70,7 +70,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: "http://api.students.dasha.nomoredomains.club",
+  baseUrl: "https://api.students.dasha.nomoredomains.club",
   headers: {
     // authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2E0YjM5ZGE4MTUwMDA3YzU4NjVhYTgiLCJpYXQiOjE2NzE3MzgyODcsImV4cCI6MTY3MjM0MzA4N30.2uUeDuzfsWgnnfkrYpJ53cCYkuQrHYFJayEGvjSPnko",
     "Content-Type": "application/json",

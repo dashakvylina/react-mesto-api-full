@@ -17,7 +17,7 @@ const { PORT = 3001 } = process.env;
 const app = express();
 
 app.use(cors({
-  origin: 'http://domainname.students.dasha.nomoredomains.club',
+  origin: 'https://domainname.students.dasha.nomoredomains.club',
   credentials: true,
 }));
 
