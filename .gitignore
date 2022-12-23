@@ -3,3 +3,4 @@ frontend/build
 backend/node_modules
 error.log
 request.log
+backend/.env
