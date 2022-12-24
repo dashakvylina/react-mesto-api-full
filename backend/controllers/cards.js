@@ -11,7 +11,7 @@ const {
 
 const getCards = async (req, res, next) => {
   try {
-    const result = await Card.find().populate(['owner likes']);
+    const result = await Card.find().populate(['owner likes']).sort({ createdAt: -1 });
     res.status(OK_CODE).json(result);
   } catch (error) {
     next(new DefaultError('Unknown error'));

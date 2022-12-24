@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -16,10 +17,20 @@ const { PORT = 3001 } = process.env;
 
 const app = express();
 
-app.use(cors({
-  origin: 'https://domainname.students.dasha.nomoredomains.club',
+const whitelist = ['http://localhost:3000', 'https://domainname.students.dasha.nomoredomains.club'];
+
+const corsOptions = {
   credentials: true,
-}));
+  origin(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
 
 app.use(cookieParser());
 

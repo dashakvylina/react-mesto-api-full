@@ -9,7 +9,6 @@ const {
   UnauthorizedError,
   ConflictError,
 } = require('../errors');
-require('dotenv').config();
 
 const getUsers = async (req, res, next) => {
   try {
@@ -31,7 +30,7 @@ const getMe = async (req, res, next) => {
     }
   } catch (error) {
     if (error.name === 'CastError') {
-      next(new BadRequestError('Unknown error'));
+      next(new BadRequestError(('Invalid id')));
     } else {
       next(error);
     }
@@ -56,7 +55,7 @@ const createUser = async (req, res, next) => {
     if (error.code === 11000) {
       next(new ConflictError('Email exists'));
     } else if (error.name === 'ValidationError') {
-      next(new BadRequestError('Email or password are not vallid'));
+      next(new BadRequestError('Data is not vallid'));
     } else {
       next(new DefaultError('Unknown error'));
     }
@@ -113,7 +112,7 @@ const updateAvatar = async (req, res, next) => {
     const result = await User.findOneAndUpdate(
       { _id: req.user._id },
       { avatar },
-      { new: true },
+      { new: true, runValidators: true },
     );
 
     if (result === null) {
@@ -137,20 +136,17 @@ const login = (req, res, next) => {
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
-      // res.send({ token }); // аутентификация успешна! пользователь в переменной user
+      const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET || 'devSecretKey', { expiresIn: '7d' });
       res.cookie(
         'token',
         token,
         {
           maxAge: 360000000,
-          // httpOnly: true,
+          httpOnly: true,
         },
       ).send({});
     })
-    .catch(() => {
-      next(new UnauthorizedError(('Auth error')));
-    });
+    .catch(next);
 };
 
 module.exports = {
