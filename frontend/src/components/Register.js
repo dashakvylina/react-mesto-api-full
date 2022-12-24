@@ -9,8 +9,6 @@ const Register = ({ onRegisterSubmit, isErrorResponse, isOpen, onClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
-  console.log("isOpen", isOpen);
-  console.log("isErrorResponse", isErrorResponse);
 
   const handleSubmit = (e) => {
     e.preventDefault();

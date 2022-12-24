@@ -11,7 +11,7 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import { useHistory } from "react-router-dom";
 
-function MainContent({ updateUser, email }) {
+function MainContent({ updateUser, email, resetLogedIn }) {
   const currentUser = React.useContext(CurrentUserContext);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
@@ -19,17 +19,19 @@ function MainContent({ updateUser, email }) {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 
+
   const [cards, setCards] = useState([]);
   const history = useHistory();
 
   const signOut = () => {
-    localStorage.removeItem("jwt");
     history.push("/signin");
+    updateUser(null);
+    resetLogedIn();
   };
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some((i) => i === currentUser._id);
+    const isLiked = card.likes.some((i) => currentUser && i === currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api

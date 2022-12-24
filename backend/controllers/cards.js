@@ -24,6 +24,7 @@ const createCard = async (req, res, next) => {
     const { name, link } = body;
     const newCard = new Card({ name, link, owner: user._id });
     await newCard.save();
+    await newCard.populate(['owner likes']);
     res.status(OK_CODE).json(newCard);
   } catch (error) {
     if (error.name === 'ValidationError') {
@@ -67,6 +68,7 @@ const createLike = async (req, res, next) => {
     if (result === null) {
       throw new NotFoundError('card not found');
     } else {
+      await result.populate(['owner likes']);
       res.status(OK_CODE).json(result);
     }
   } catch (error) {
@@ -90,6 +92,7 @@ const deleteLike = async (req, res, next) => {
     if (result === null) {
       throw new NotFoundError('card not found');
     } else {
+      await result.populate(['owner likes']);
       res.status(OK_CODE).json(result);
     }
   } catch (error) {

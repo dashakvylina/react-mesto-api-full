@@ -18,23 +18,23 @@ function App() {
   const history = useHistory();
 
   // const checkToken = () => {
-  //   const jwt = localStorage.getItem("jwt");
-  //   if (jwt) {
-  //     // проверим токен
-  //     auth
-  //       .fetchUser(jwt)
-  //       .then((res) => {
-  //         if (res) {
-  //           setEmail(res.data.email);
-  //           // авторизуем пользователя
-  //           setLoggedIn(true);
-  //           // обернём App.js в withRouter
-  //           // так, что теперь есть доступ к этому методу
-  //           history.push("/");
-  //         }
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
+  //   // const jwt = localStorage.getItem("jwt");
+  //   // if (jwt) {
+  //   // проверим токен
+  //   auth
+  //     .fetchUser()
+  //     .then((res) => {
+  //       if (res) {
+  //         setEmail(res.data.email);
+  //         // авторизуем пользователя
+  //         setLoggedIn(true);
+  //         // обернём App.js в withRouter
+  //         // так, что теперь есть доступ к этому методу
+  //         history.push("/");
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  //   // }
   // };
 
   // useEffect(() => {
@@ -42,15 +42,20 @@ function App() {
   // }, []);
 
   useEffect(() => {
+
     api
       .fetchUser()
       .then((res) => {
+        if (res.email) {
+          setCurrentUser(res);
+          setEmail(res.email);
+          // setLoggedIn(true);
+          history.push("/");
+        }
 
-        setCurrentUser(res);
-        setEmail(res.email);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [history, loggedIn]);
 
   const onLoginSubmit = (username, password) => {
     auth
@@ -59,8 +64,6 @@ function App() {
 
 
         if (Object.keys(res).length === 0) {
-          // localStorage.setItem("jwt", res.token);
-
           setLoggedIn(true); // обновляем стейт внутри App.js
           history.push("/"); // и переадресуем пользователя!
         }
@@ -73,7 +76,7 @@ function App() {
       .fetchSignUp(password, email)
       .then((res) => {
         setOpen(true);
-        setIsErrorResponse(res.status === 201 ? false : true);
+        setIsErrorResponse(res._id ? false : true);
       })
       .catch((err) => {
         console.log(err);
@@ -101,6 +104,7 @@ function App() {
           loggedIn={loggedIn}
           component={MainContent}
           updateUser={setCurrentUser}
+          resetLogedIn={() => setLoggedIn(false)}
           email={email}
           exact
         />
