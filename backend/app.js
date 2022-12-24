@@ -21,7 +21,7 @@ const app = express();
 
 const corsOptions = {
   credentials: true,
-  origin: 'http://localhost:3000',
+  origin: 'https://domainname.students.dasha.nomoredomains.club',
   // origin(origin, callback) {
   //   if (whitelist.indexOf(origin) !== -1) {
   //     callback(null, true);
