@@ -6,7 +6,6 @@ const {
   BadRequestError,
   DefaultError,
   NotFoundError,
-  UnauthorizedError,
   ConflictError,
 } = require('../errors');
 
@@ -143,12 +142,26 @@ const login = (req, res, next) => {
         {
           maxAge: 360000000,
           httpOnly: true,
+          // sameSite: true
         },
       ).send({});
     })
     .catch(next);
 };
 
+const logOut = (req, res) => {
+  const token = jwt.sign({ _id: null }, process.env.JWT_SECRET || 'devSecretKey', { expiresIn: '7d' });
+  res.cookie(
+    'token',
+    token,
+    {
+      maxAge: 360000000,
+      httpOnly: true,
+      // sameSite: true
+    },
+  ).send({});
+};
+
 module.exports = {
-  getUsers, getMe, createUser, updateUser, updateAvatar, login, getUserById,
+  getUsers, getMe, createUser, updateUser, updateAvatar, login, getUserById, logOut,
 };

@@ -8,7 +8,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const CardRouter = require('./routes/cards');
 const UserRouter = require('./routes/users');
-const { createUser, login } = require('./controllers/users');
+const { createUser, login, logOut } = require('./controllers/users');
 const { auth } = require('./middlewares/auth');
 const { NotFoundError } = require('./errors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -22,6 +22,7 @@ const app = express();
 const corsOptions = {
   credentials: true,
   origin: 'https://domainname.students.dasha.nomoredomains.club',
+  // origin: 'http://localhost:3000',
   // origin(origin, callback) {
   //   if (whitelist.indexOf(origin) !== -1) {
   //     callback(null, true);
@@ -66,6 +67,8 @@ app.post('/signin', celebrate({
     email: Joi.string().email().required(),
   }),
 }), login);
+
+app.get('/logout', logOut);
 
 app.use('/', auth, CardRouter);
 app.use('/', auth, UserRouter);

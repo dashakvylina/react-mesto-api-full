@@ -49,7 +49,7 @@ function App() {
         if (res.email) {
           setCurrentUser(res);
           setEmail(res.email);
-          // setLoggedIn(true);
+          setLoggedIn(true);
           history.push("/");
         }
 

@@ -27,6 +27,10 @@ class Auth {
     });
   }
 
+  logOut() {
+    return this._fetch("/logOut", "GET", undefined);
+  }
+
   fetchSignIn(password, email) {
     return this._fetch("/signin", "POST", {
       password,
@@ -42,8 +46,8 @@ class Auth {
 }
 
 const auth = new Auth({
-  baseUrl: "https://api.students.dasha.nomoredomains.club",
-  // baseUrl: "http://localhost:3001",
+  // baseUrl: "https://api.students.dasha.nomoredomains.club",
+  baseUrl: "http://localhost:3001",
   headers: {
     "Content-Type": "application/json",
   },

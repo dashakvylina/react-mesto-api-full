@@ -4,3 +4,4 @@ backend/node_modules
 error.log
 request.log
 backend/.env
+.DS_Store

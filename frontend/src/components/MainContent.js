@@ -10,6 +10,7 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import { useHistory } from "react-router-dom";
+import auth from "../utils/auth";
 
 function MainContent({ updateUser, email, resetLogedIn }) {
   const currentUser = React.useContext(CurrentUserContext);
@@ -24,9 +25,13 @@ function MainContent({ updateUser, email, resetLogedIn }) {
   const history = useHistory();
 
   const signOut = () => {
-    history.push("/signin");
-    updateUser(null);
-    resetLogedIn();
+    auth.logOut().then(
+      () => {
+        history.push("/signin");
+        updateUser(null);
+        resetLogedIn();
+      }
+    )
   };
 
   function handleCardLike(card) {
